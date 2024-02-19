@@ -1,0 +1,116 @@
+.section-main-logo{
+    background: url(../../img/buffet-backgr.png)no-repeat;
+    width:600px;
+    height: 200px;
+    margin: auto;
+    padding:110px 0 0 0;
+  }
+  .section-main-logo span{
+    text-align: center;
+    font-family: 'Crimson Text', serif;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: italic;
+    color: #8b909d;
+    margin-top:15px;
+    display: block;
+  }
+  main .conteiner{
+    max-width: 1257px;
+  }
+  /*!--section_post--*/
+  .section-main-item{
+    display: flex;
+    justify-content: space-between;
+  }
+  .section-main-item div:nth-child(1){
+    background: url('../../img/dessert.jpg')no-repeat center;
+    background-size: cover;
+    width:390px; 
+    height: 300px;
+    margin-top: 50px;
+  }
+  .section-main-item div:nth-child(1) p:nth-child(1){
+    color:#d89b64;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 36px;
+    margin:100px 0 0 0;
+  }
+  .section-main-item div:nth-child(1) p:nth-child(2){
+    margin: 0 auto;
+    width:50px;
+  }
+  .section-main-item div:nth-child(1) p:nth-child(3){
+    color:#ffff;
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .section-main-item div:nth-child(2){
+    background: url('../../img/smothies.jpg')no-repeat center;
+    background-size: cover;
+    width:390px;
+    height: 400px;
+    margin-right: 43.5px;
+    margin-left: 43.5px;
+  }
+  .section-main-item div:nth-child(2) p:nth-child(1){
+    color:#151b29;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 36px;
+    margin:270px 0 0 0;
+  }
+  .section-main-item div:nth-child(2) p:nth-child(2){
+    margin: 0 auto;
+    width:50px;
+  }
+  .section-main-item div:nth-child(2) p:nth-child(3){
+    color:#4a4f5b;
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .section-main-item div:nth-child(3){
+    background: url('../../img/breackfast.jpg')no-repeat center;
+    background-size: cover;
+    width:390px;
+    height: 300px;
+    margin-top: 50px;
+  }
+  .section-main-item div:nth-child(3) p:nth-child(1){
+    color:#d89b64;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 36px;
+    margin:100px 0 0 0;
+  }
+  .section-main-item div:nth-child(3) p:nth-child(2){
+    margin: 0 auto;
+    width:50px;
+  }
+  .section-main-item div:nth-child(3) p:nth-child(3){
+    color:#ffff;
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .liner{
+    background-color: #d89b64;
+    width: 100%;
+    height: 2px;
+    display: block;
+  }

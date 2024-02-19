@@ -1,0 +1,26 @@
+  /* admin page */
+  .admin--workplace{
+    text-align: center;
+  }
+  .admin--workplace>input{
+    width: 50px;
+  }
+  /* admin utilites function for dublClick */
+  input.dbl-change{
+    width: 70px;
+    border: 1px solid #c9c9c9;
+  }
+  input.dbl-change:focus{
+    outline-color: #d89b64;
+  }
+  textarea.dbl-change{
+    width: inherit;
+    /* height: 90%; */
+    padding: 2px;
+  }
+  .dbl-change:hover{
+    cursor: text;
+  }
+  .dbl-currenttag{
+    word-wrap: break-word;
+  }

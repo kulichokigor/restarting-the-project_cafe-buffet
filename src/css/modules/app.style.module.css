@@ -1,0 +1,149 @@
+/* navigation */
+.navigation--header{
+    display: flex;
+    align-items: center;
+}
+.navigation--header>ul{
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+.navigation--header>ul>li{
+    padding: 0 33px;
+}
+.navigation--header>ul>li:hover{
+    cursor:pointer
+}
+.navigation--header>ul>li>a{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+}
+.navigation--header>ul>li>a:hover{
+    color: #d89b64;
+}
+
+/* slider */
+.slider{
+    background-color: #151b29;
+}
+.slider--box{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding-bottom: 93px;
+}
+.slider--box-left, .slider--box-right{
+    font-size: 180px;
+    color: #1f2736;
+    background-color: transparent;
+    display: block;
+    position: absolute;
+    top: 20%;
+    border: none;
+}
+.slider--box-left:hover, .slider--box-right:hover{
+    cursor: pointer;
+}
+.slider--box-left{
+    content: '\2039';
+    left: 0;
+    z-index: 100;
+}
+.slider--box-right{
+    content: '\203A';
+    right: 0;
+    z-index: 100;
+}
+/* slider: images-box */
+.slider--images-box{
+    display: flex;
+    overflow: hidden;
+    width: inherit;
+    margin: auto;
+    position: relative;
+}
+/* .slider--images-box::-webkit-scrollbar{
+    display: none;
+} */
+.slider--images-box ul{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.slider--box-left:hover{
+    transition: transform 0.3s ease;
+    
+}
+.slider--images-box ul li{
+    transform: translate3d(0%, 0px, 0px)
+}
+.slider--images-box ul li{
+    margin: 0 auto;
+    width: 1170px;
+    height: 450px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.5s ease;
+}
+
+/* slider: bottom section */
+.slider--bottom-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* slider orderliness */
+.slider--orderliness ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 140px;
+    overflow: hidden;
+}
+
+.slider--orderliness ul li{
+    width: 70px;
+    padding-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    box-sizing: border-box;
+    height: 35px;
+}
+.slider--orderliness ul li:hover{
+    cursor: pointer;
+}
+.slider--orderliness ul li.elect{
+    color:#d89b64;
+    border-bottom: 1px solid #d89b64;
+    margin:15px 0 20px 0;
+}
+.slider--date-menu{
+    margin-left: 150px;
+    font-size: 16px;
+    color:#485471;
+    font-weight: bold
+}
+.slider--date-menu > i{
+    color: #d89b64;
+}
+.slider--button{
+    display: block;
+    background-color: transparent;
+    color: #d89b64;
+    padding: 23px 55px;
+    border: 1px solid #1f2736;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.slider--button:hover{
+    background-color: #1f2736;
+    border: 1px solid #d89b64;
+    cursor: pointer;
+}
