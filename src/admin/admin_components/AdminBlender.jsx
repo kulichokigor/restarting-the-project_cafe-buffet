@@ -88,12 +88,13 @@ const AdminBlender = ({category, clsMod, state}) =>{
         if(key==='addMenu'){addBlankCard[key] = false};
         if(key==='image'){addBlankCard[key] = '/images/logo.png'};
         if(key==='typeDish'){addBlankCard[key] = sub};
+        if(key==='price'){addBlankCard[key] = `?`};
     }
 
     const addNewCardBlender = (sub, cardDishesTemplate) =>{
         const adjustingArray = stateBlander.subcategoriesDishes[sub];
         const addBlankCard = {}; //пуста dishCard
-        const keyNewCard = Object.keys(adjustingArray[0]);
+        const keyNewCard = Object.keys(cardDishesTemplate)
         // а якщо масив пустий? Створити dishCard з шаблону addBlankCard
         keyNewCard.length > 0 ? keyNewCard.forEach(key=>{
             //повторювані дані! Фу-ція repeatedComponentCode пвертає правильно згенеровані ключі і значення для нових dishCard
@@ -105,7 +106,7 @@ const AdminBlender = ({category, clsMod, state}) =>{
             return {...prev}
         })
     }
-    console.log(stateBlander);
+    
     // -- END ADD_NWE_CARD_FUNCTIONS --
 
     // -- START PART_OF_THE_RENDER --
@@ -134,6 +135,7 @@ const AdminBlender = ({category, clsMod, state}) =>{
                             {subDish[sub].length === index + 1 && <AddCardButton subCategory={sub} addCardFunction={addNewCardBlender}/>}
                         </React.Fragment>
                     })}
+                    {stateBlander.subcategoriesDishes[sub].length === 0 && <AddCardButton subCategory={sub} addCardFunction={addNewCardBlender}/>}
                 </div>
             </article>
         )
