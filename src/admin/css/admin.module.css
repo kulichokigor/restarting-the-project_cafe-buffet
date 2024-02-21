@@ -20,8 +20,20 @@
     display: block;
     width: fit-content;
 }
+.category-section--list svg{
+    color: #0075ff;
+}
 
 /* --admin sub-category styles-- */
+.sub_category--section{
+    position: relative;
+}
+.sub_category--section svg{
+    position: absolute;
+    top: 0;
+    right: -20px;
+    color: #c1273c;
+}
 .sub_category-article{
     width: 90%;
     margin-left: auto;

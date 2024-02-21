@@ -1,10 +1,13 @@
 import React from 'react'
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faClose, faAdd } from "@fortawesome/free-solid-svg-icons"
 
 import DishCard from "./AdminDishCard";
 import AddCardButton from "./admin_elements-for-components/AdminAddButtonComponent";
 
 import {functionForCorrectingNames} from "../../utilities/utilites_functionForCorrectingNames";
+
 
 const AdminBlender = ({category, clsMod, state}) =>{
     const correctCategoryName = functionForCorrectingNames(category);
@@ -13,6 +16,33 @@ const AdminBlender = ({category, clsMod, state}) =>{
     // stateBlander - це стейт для кожної категорії (категорія => дані), для зміни повністю категорій
     const subDish = stateBlander.subcategoriesDishes;
     const subCategoryNameArr = Object.keys(subDish);
+
+    // -- START CATEGORY_FUNCTIONS -- 
+    //функція на додавання підкатегорій
+    const addSubcategoriesBlender = () =>{
+        let subEntered = prompt('Введіть назву нової підкатегорії');
+        subEntered.trim().length > 0 && setStateBlander(prev=>{
+            const sub = prev.subcategoriesDishes;
+            const newSub = {[subEntered]:[]}
+            Object.assign(sub, newSub)
+            return {
+                ...prev
+            }
+        })
+    }
+    //функція на видалення підкатеорій
+    const removeSubcategoriesBlender = (sub) =>{
+        const confirmation = window.confirm(`Видалити підкатегорію ${functionForCorrectingNames(sub)}?`); 
+        confirmation && setStateBlander(prev=>{
+            delete prev.subcategoriesDishes[sub]
+            return {
+                ...prev
+            }
+        })
+    }
+
+    // -- END CATEGORY_FUNCTIONS -- 
+
     // -- START CARD_FUNCTIONS -- 
     //checkedDishCardBlender => функція вибору карти адміністратором check
     const checkedDishCardBlender = (e, card, sub)=>{
@@ -106,17 +136,19 @@ const AdminBlender = ({category, clsMod, state}) =>{
             return {...prev}
         })
     }
-    
     // -- END ADD_NWE_CARD_FUNCTIONS --
 
     // -- START PART_OF_THE_RENDER --
     const subCategoryDish =  subCategoryNameArr.map((sub, index)=>{
         return (
             <article key={index} className={clsMod["sub_category-article"]}>
-                <div className={clsMod["sub_category--container"]}>
-                    <div></div>
-                    <div>{functionForCorrectingNames(sub)}</div>
-                    <div></div>
+                <div className={clsMod["sub_category--section"]}>
+                    <div className={clsMod["sub_category--container"]}>
+                        <div></div>
+                        <div>{functionForCorrectingNames(sub)}</div>
+                        <div></div>
+                    </div>
+                    <FontAwesomeIcon icon={faClose} onClick={()=>removeSubcategoriesBlender(sub)}/>
                 </div>
                 <div className={clsMod["sub_category--box-container"]}>
                     {subDish[sub].map((dish, index)=>{
@@ -146,6 +178,7 @@ const AdminBlender = ({category, clsMod, state}) =>{
             <div className={clsMod["category-section--list"]}>
                 <div>
                     <span>{correctCategoryName}</span>
+                    <FontAwesomeIcon icon={faAdd} onClick={addSubcategoriesBlender} />
                     <div></div>
                 </div>
                {subCategoryDish}

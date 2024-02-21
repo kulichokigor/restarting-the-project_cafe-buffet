@@ -42,8 +42,6 @@ export function divisionDataPartsAction(){
             return Object.keys(el.subcategoriesDishes)
         });
 
-        console.log(subCategoryDish);
-        
         dispatch({type:_formedMenu, menuDay:formedMenu, categoryDish:categoryKeys, subCategoryDish})
     }
 }
