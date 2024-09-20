@@ -34,6 +34,7 @@ const AdminApp = (props) => {
         oldUAnameCategory:'',
         id:''
     })
+    // функція на подію зміни головних категорій
     const categoryModalWindowFunction_show =(oldNameCategory, id)=>{
         setCategoryNameState(prev=>{
             return {
@@ -45,6 +46,7 @@ const AdminApp = (props) => {
         })
         dialogRef.current.showModal();
     }
+    // фу-ція на коригування input value для зміни категорій
     const changeNameCategoryHandler = (event) =>{
         const cyrillicPattern = /[а-яА-ЯёЁіїєґІЇЄҐ]/u;
         const spacesValue = event.target.value.replace(/\s/g, '')
@@ -56,33 +58,38 @@ const AdminApp = (props) => {
         })
     }
 
+    // фу-ція підтвердження зміни категорії
     const confirmChangeFunction=(event)=>{
         event.preventDefault();
         let selectedMod = Object.values(stateApp.dishes).find(el=>(el.indexId===categoryNameState.id))
         selectedMod.nameCategory = functionForCorrectingNames(categoryNameState.newNameCategory);
         selectedMod.uaNameCategory = categoryNameState.newUAnameCategory;
-
         setStateApp(prev=>{
+            const newDishes = {...prev.dishes};
+            newDishes[categoryNameState.newNameCategory] = selectedMod;
+            delete newDishes[categoryNameState.oldNameCategory];
+            const afterSortNewDishesObject = Object.values(newDishes).sort((a,b)=>a.indexId - b.indexId).reduce((acc, item)=>{
+                acc[dynamicallyWordsInKey(item.nameCategory)] = item
+                return acc
+            }, {})
             return {
-                ...prev
+                ...prev,
+                dishes: {
+                   ...afterSortNewDishesObject
+                }
             }
-        })
-        
-       console.log(stateApp);
-        
-
-        
+        })  
         dialogRef.current.close();
     }
+    console.log("APP___:  ", stateApp);
+    // фу-ція відміни зміни категорії
     const categoryModalWindowFunction_close=()=>(dialogRef.current.close());
 //    blender
     const categoryDishList = stateApp !=null && Object.keys(stateApp.dishes).map((dish, index)=>{
-        console.log("NAME from STATE: ", dynamicallyWordsInKey(stateApp.dishes[dish].nameCategory));
-        console.log("DISH: ",dish);
         return <AdminBlender
                     id={stateApp.dishes[dish].indexId}
                     key={index} 
-                    category={dynamicallyWordsInKey(stateApp.dishes[dish].nameCategory)} 
+                    category={dynamicallyWordsInKey(stateApp.dishes[dish].nameCategory)}
                     clsMod={clsMod} 
                     state={stateApp}
                     setStateBlender={setStateApp}

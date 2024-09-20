@@ -69,6 +69,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+<!-- reboot: 1-commit -->
 description:
 
     ^a1 : ' actions.js  Виклик функції divisionDataPartsAction() при завантаженні даних з сервера! Залежність функції від даних з бд. divisionDataPartsAction - обробляє і повертає в загальний state redux дані {menu:*}, а саме дані вибору меню адміна! (Пр. Чи потрібно виносити в стейт дані по категоріях?)';
