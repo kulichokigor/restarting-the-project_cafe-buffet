@@ -2,16 +2,17 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import classesSlider from '../../css/modules/app.style.module.css';
-import { adminState } from '../../redux/reducer/rootReducer';
+import { adminState, payloadState } from '../../redux/reducer/rootReducer';
 
 
 
-// import { data } from '../../api/test.api.slider[version19.11.2023]';
+import { data } from '../../api/test.api.slider[version19.11.2023]';
 
 export default function Slider(props){
     const [sliderState, setSliderState] = useState({slidePosition:0});
     
     //--redux store {menu*}
+    const stateApp = useSelector(payloadState);
     const selector = useSelector(adminState);
     const mainStateMenu = selector.menuDay;
     //redux store {menu*} --
@@ -74,7 +75,7 @@ export default function Slider(props){
                         </ul>
                     </div>
                     <div className={classesSlider["slider--date-menu"]}>Меню на сьогодні! <i>{`${new Date().getDate()}.${new Date().getMonth()+1}`}</i></div>
-                    <button className={classesSlider["slider--button"]}>book a table</button>
+                    <button className={classesSlider["slider--button"]} onClick={()=>putData(data)}>book a table</button>
                     </div>
                 </div>
             </div>
@@ -82,13 +83,12 @@ export default function Slider(props){
     )
 }
 
-// function putData(){
-    
-//     fetch('https://buffet-tat-caffe.firebaseio.com/payload.json', {
-//         method: 'PUT',
-//         headers: {
-//             'Content-Type': 'application/json;charset=utf-8'
-//           },
-//         body: JSON.stringify(data)
-//     })
-// }
+function putData(stateApp){
+    fetch('https://buffet-tat-caffe.firebaseio.com/payload.json', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+        body: JSON.stringify(stateApp)
+    })
+}

@@ -1,7 +1,92 @@
-/* --admin category styles-- */
-/* .admin--category-section{
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
 
-} */
+/* --admin navigation styles-- */
+.admin--navigation-section{
+    margin: 20px 0;
+}
+.admin--navigation-section ul{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    border-bottom: 3px solid #d89b64;
+}
+.admin--navigation-section ul li{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    position: relative;
+}
+.admin--navigation-section ul li.nav-admin-list::after{
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 6px;
+    height: 60%;
+    width: 2px;
+    background: #e7e5e6;
+}
+.admin--navigation-section ul li:hover{
+    cursor: pointer;
+    background: #d89b64;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.admin--navigation-section ul li.nav-admin-list:hover::after{
+    display: none;
+}
+/* admin---blender-section */
+.admin---blender-section{
+    
+}
+/* --admin dialog styles-- */
+.admin---blender-section dialog{
+    z-index: 1;
+}
+.admin---blender-section dialog > h2{
+    font-size: 18px;
+    color: #d89b64;
+    text-shadow: 1px 1px 1px #808080;
+}
+.admin--dialog-btn{
+    position: absolute;
+    color: #e7e5e6;
+    top: 8px;
+    right: 8px;
+    font-size: 20px;
+}
+.admin--dialog-btn:hover{
+    cursor: pointer;
+    color: #d89b64;
+}
+
+/* --admin category styles-- */
+.admin--category-section{
+    padding-top: 20px;
+}
+.admin--panel{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.admin--panel button{
+    margin-right: 5px;
+    background-color: #d89b64;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    color: #161b29;
+    padding: 2px 5px;
+}
+.admin--panel button:hover{
+    background-color: #808080;
+    color: #0f1420;
+}
+.admin--panel select{
+    background: #f7f7f7;
+    border: 2px solid #d89b64;
+    border-radius: 5px;
+    padding: 2px 5px;
+}
 .category-section--list>div{
     width: 100%;
     display: flex;
@@ -15,10 +100,115 @@
     width: 90%;
     /* margin-left: 5px; */
 }
-.category-section--list>div>span{
+.category-section--category{
     color: #161b29;
+    display: flex;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+.category-section--category:hover{
+    cursor: pointer;
+}
+.category-section--category>div>svg{
+    position: absolute;
+    /* bottom: 10px;
+    left: -40px; */
+    bottom: 50px;
+    left: -20px;
+    color: #b1723b;
+}
+.category-section--category>div>p{
+    opacity: 0;
+}
+.category-section--category>div>svg:hover{
+    cursor: pointer;
+}
+.category-section--category>div>div{
+    color: #d6d7e9;
+    position: absolute;
+    top: 2px;
+    left: -15px;
+    font-size: 20px;
+    z-index: 0;
+    width: 300%;
+    text-align: left;
+    font-family: "Protest Riot", sans-serif;
+}
+.category-section--category>div>p>svg{
+    position: absolute;
+}
+.category-section--category>div>p>svg:nth-child(1){
+    left:10px;
+    bottom:0px;
+}
+.category-section--category>div>p>svg:nth-child(2){
+    left:53px;
+    bottom:18px;
+    color: #c1273c;
+}
+/* active rotate main categories */
+.category-section--category>div.active-rotate>p{
+    opacity: 1;
+    animation: svgBtn-active 8s 1;
+}
+@keyframes svgBtn-active {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.category-section--category> div.active-rotate::before{
+    content: '';
     display: block;
-    width: fit-content;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: -30%;
+    top: 0;
+    transform: translate(-80%, -50%);
+    border-radius: 100%;
+    border-top: 1px solid transparent;
+    border-left: 1px solid #dbdbdc;
+    border-bottom: 1px solid #dbdbdc;
+    animation: grow 3s forwards;
+}
+@keyframes grow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+.category-section--category>div.active-rotate>svg{
+    animation: fa-active 6s forwards;
+}
+@keyframes fa-active {
+    0% {
+        color: #b1723b;
+    }
+    100% {
+        color: #808080;
+    }
+}
+.category-section--category>div.passive-rotate>svg{
+    animation: fa-passive 6s forwards;
+}
+@keyframes fa-passive {
+    0% {
+        color: #808080;
+    }
+    100% {
+        color: #b1723b;
+    }
+}
+.category--active-work-panel{
+    display: block;
 }
 .category-section--list svg{
     color: #0075ff;
@@ -187,3 +377,58 @@
     color: #808080;
     border: 1px solid #808080;
   }
+/* main category dialog window */
+.dialog-window h4 b{
+    color: #0075ff;
+}
+.dialog-window{
+    position:fixed;
+    border-radius: 10px;
+    border: 1px solid #d9d9d9;
+    top:-40%;
+    box-shadow: -1px 2px 6px #a3a1a1;
+    padding: 20px;
+    width: 40%;
+}
+.dialog-window label{
+    display: flex;
+    flex-flow: column;
+}
+.dialog-window label *{
+    margin: 5px;
+}
+.dialog-window label span{
+    font-size: 14px;
+    text-align: left;
+}
+.dialog-window input{
+    max-width: 100%;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #f6f6f8 !important;
+}
+.dialog-window div{
+    text-align: right;
+}
+.dialog-window div>button{
+    margin: 5px;
+    background: #0075ff;
+    border: 1px solid #0075ff;
+    border-radius: 5px;
+    padding: 8px;
+    color: #ffffff;
+    font-size: 14px;
+}
+.dialog-window div>button:nth-child(2){
+    color: #0075ff;
+    background: #fff;
+    border: 1px solid #0075ff;
+}
+.dialog-window div>button:nth-child(2):hover{
+    background: rgb(241, 241, 241);
+}
+.dialog-window div>button:hover{
+    cursor:pointer;
+    background: #2f8efa;
+}

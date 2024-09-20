@@ -1,4 +1,5 @@
-import { _load, _loadRes, _loadError, _formedMenu } from "./actionsType"
+import { _load, _loadRes, _loadError, _formedMenu } from "./actionsType";
+import { dynamicallyWordsInKey } from "../../utilities/utilites_functionForСhangeWords_Key";
 
 export function cafeDataAction() {
     return async (dispatch) =>{
@@ -6,6 +7,13 @@ export function cafeDataAction() {
         try{
             const responce = await fetch('https://buffet-tat-caffe.firebaseio.com/payload.json');
             const data = await responce.json();
+            // сортуємо об`єкт страв data.dishes за indexId
+            const sortDataDihes = Object.values(data.dishes).sort((a,b)=>a.indexId-b.indexId)
+            data.dishes=sortDataDihes.reduce((acc, item)=>{
+                acc[dynamicallyWordsInKey(item.nameCategory)] = item
+                return acc
+            }, {})
+            // end
             dispatch({type:_loadRes, payload:data});
             dispatch(divisionDataPartsAction()) //позначка ^a1 README.md
         }catch(error){

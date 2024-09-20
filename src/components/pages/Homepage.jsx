@@ -7,7 +7,6 @@ import OfferDay from "../elements_components/sections/OfferDay";
 
 export default function HomePage(props){
     const storeState = useSelector(payloadState);
-    console.log(storeState);
     return (
         <>
             {

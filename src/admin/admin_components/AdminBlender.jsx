@@ -1,29 +1,38 @@
 import React from 'react'
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faClose, faAdd } from "@fortawesome/free-solid-svg-icons"
+import { faClose, faAdd, faWrench, faPen, faTrash } from "@fortawesome/free-solid-svg-icons"
 
 import DishCard from "./AdminDishCard";
 import AddCardButton from "./admin_elements-for-components/AdminAddButtonComponent";
 
+
 import {functionForCorrectingNames} from "../../utilities/utilites_functionForCorrectingNames";
+import { dynamicallyWordsInKey } from '../../utilities/utilites_functionForСhangeWords_Key';
 
-
-const AdminBlender = ({category, clsMod, state}) =>{
+const AdminBlender = ({id,category, clsMod, state, categoryModalWindowFunction}) =>{
+    //! [ШАПКА КОМПОНЕНТУ - ВИБІРКА ДАНИХ ДЛЯ РОБОТИ + ДОП. ФУНКЦІОНАЛ] 
     const correctCategoryName = functionForCorrectingNames(category);
     //subCat
-    const [stateBlander, setStateBlander] = useState(state.dishes[category]);
-    // stateBlander - це стейт для кожної категорії (категорія => дані), для зміни повністю категорій
-    const subDish = stateBlander.subcategoriesDishes;
+    const [stateBlender, setStateBlender] = useState(state.dishes[category]);
+    const uaNameCategory = stateBlender.uaNameCategory;
+    // stateBlender - це стейт для кожної категорії (категорія => дані), для зміни повністю категорій
+    const subDish = stateBlender.subcategoriesDishes;
     const subCategoryNameArr = Object.keys(subDish);
+    
+    // -- START MAIN-CATEGORY_FUNCTIONS -- 
+        // active class main category
+    const [activeRotate, setActiveRotate] = useState(false);
+       
+    // -- END MAIN-CATEGORY_FUNCTIONS --
 
-    // -- START CATEGORY_FUNCTIONS -- 
+    // -- START SUB-CATEGORY_FUNCTIONS -- 
     //функція на додавання підкатегорій
     const addSubcategoriesBlender = () =>{
         let subEntered = prompt('Введіть назву нової підкатегорії');
-        subEntered.trim().length > 0 && setStateBlander(prev=>{
+        (subEntered && subEntered.trim().length > 0) && setStateBlender(prev=>{
             const sub = prev.subcategoriesDishes;
-            const newSub = {[subEntered]:[]}
+            const newSub = {[dynamicallyWordsInKey(subEntered)]:[]}
             Object.assign(sub, newSub)
             return {
                 ...prev
@@ -33,7 +42,7 @@ const AdminBlender = ({category, clsMod, state}) =>{
     //функція на видалення підкатеорій
     const removeSubcategoriesBlender = (sub) =>{
         const confirmation = window.confirm(`Видалити підкатегорію ${functionForCorrectingNames(sub)}?`); 
-        confirmation && setStateBlander(prev=>{
+        confirmation && setStateBlender(prev=>{
             delete prev.subcategoriesDishes[sub]
             return {
                 ...prev
@@ -41,12 +50,12 @@ const AdminBlender = ({category, clsMod, state}) =>{
         })
     }
 
-    // -- END CATEGORY_FUNCTIONS -- 
+    // -- END SUB-CATEGORY_FUNCTIONS -- 
 
     // -- START CARD_FUNCTIONS -- 
     //checkedDishCardBlender => функція вибору карти адміністратором check
     const checkedDishCardBlender = (e, card, sub)=>{
-        setStateBlander(prev=>{
+        setStateBlender(prev=>{
             const catSelArr = prev.subcategoriesDishes[sub];
             const reqCard = catSelArr.find(el=>(el.id === card.id));
             reqCard.addMenu = e.target.checked
@@ -58,7 +67,7 @@ const AdminBlender = ({category, clsMod, state}) =>{
     // функція на заміну тексту карти, вказування місця заміни *. Головний функціонал на зміни title, description, price знаходиться в утилітах functionForDubCLick
     const cardReloaderBlender = (el, changedTag, sub, id) =>{
         if(changedTag && changedTag.classList.contains('dbl-currenttag')){
-            setStateBlander(prev=>{
+            setStateBlender(prev=>{
                 const subCat = prev.subcategoriesDishes[sub];
                 const replaceCard = subCat[id-1];
                 const replaceElemCard = el.place;
@@ -77,7 +86,7 @@ const AdminBlender = ({category, clsMod, state}) =>{
                 const reader = new FileReader();
                 reader.onloadend = () =>{
                     const imageDataUrlBase = reader.result;
-                    setStateBlander(prev=>{
+                    setStateBlender(prev=>{
                         const result = {
                             ...prev,
                             subcategoriesDishes:{
@@ -100,12 +109,10 @@ const AdminBlender = ({category, clsMod, state}) =>{
     // функція на видалення карти
     const deleteCardBlender = (sub, index) =>{
         const confirmation = window.confirm('Видалити карту?')
-        confirmation && setStateBlander(prev=>{
+        confirmation && setStateBlender(prev=>{
             const catSelArr = prev.subcategoriesDishes[sub];
             catSelArr.splice(index,1)
-            return {
-                ...prev
-            }
+            return {...prev}
         })
     }
     // -- END CARD_FUNCTIONS --
@@ -122,7 +129,7 @@ const AdminBlender = ({category, clsMod, state}) =>{
     }
 
     const addNewCardBlender = (sub, cardDishesTemplate) =>{
-        const adjustingArray = stateBlander.subcategoriesDishes[sub];
+        const adjustingArray = stateBlender.subcategoriesDishes[sub];
         const addBlankCard = {}; //пуста dishCard
         const keyNewCard = Object.keys(cardDishesTemplate)
         // а якщо масив пустий? Створити dishCard з шаблону addBlankCard
@@ -130,7 +137,7 @@ const AdminBlender = ({category, clsMod, state}) =>{
             //повторювані дані! Фу-ція repeatedComponentCode пвертає правильно згенеровані ключі і значення для нових dishCard
             repeatedComponentCode(key, addBlankCard, adjustingArray, sub)
         }) : cardDishesTemplate.forEach(key=>repeatedComponentCode(key, addBlankCard, adjustingArray, sub))
-        setStateBlander(prev=>{
+        setStateBlender(prev=>{
             const prevSubcategoriesDishes = prev.subcategoriesDishes[sub];
             prevSubcategoriesDishes.push(addBlankCard)
             return {...prev}
@@ -167,23 +174,36 @@ const AdminBlender = ({category, clsMod, state}) =>{
                             {subDish[sub].length === index + 1 && <AddCardButton subCategory={sub} addCardFunction={addNewCardBlender}/>}
                         </React.Fragment>
                     })}
-                    {stateBlander.subcategoriesDishes[sub].length === 0 && <AddCardButton subCategory={sub} addCardFunction={addNewCardBlender}/>}
+                    {stateBlender.subcategoriesDishes[sub].length === 0 && <AddCardButton subCategory={sub} addCardFunction={addNewCardBlender}/>}
                 </div>
             </article>
         )
     })
     // RENDER
     return (
-        <section className={clsMod["admin--category-section"]}>
+        <div className={clsMod["admin--category-section"]}>
             <div className={clsMod["category-section--list"]}>
                 <div>
-                    <span>{correctCategoryName}</span>
-                    <FontAwesomeIcon icon={faAdd} onClick={addSubcategoriesBlender} />
+                    <span className={clsMod["category-section--category"]} >
+                            <div className={activeRotate ? clsMod["active-rotate"] : clsMod["passive-rotate"]}>
+                            {uaNameCategory}
+                            <div>{correctCategoryName}</div>
+                            <FontAwesomeIcon icon={faWrench} onClick={()=>{setActiveRotate((prev)=>(!prev))}}/>
+                            <p>
+                                <FontAwesomeIcon 
+                                    icon={faPen} 
+                                    onClick={()=>categoryModalWindowFunction(category, id)}
+                                />
+                                <FontAwesomeIcon icon={faTrash}/>
+                            </p>
+                            </div>
+                    </span>
                     <div></div>
+                    <FontAwesomeIcon icon={faAdd} onClick={addSubcategoriesBlender} />
                 </div>
                {subCategoryDish}
             </div>
-        </section>
+        </div>
     )
 }
 

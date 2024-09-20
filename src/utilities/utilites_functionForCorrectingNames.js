@@ -3,7 +3,7 @@ export const functionForCorrectingNames = (arr) =>{
         const result = arr.map((category, index)=>{
             let arrLetter = category.split('');
             let result = arrLetter.map((el, index)=>{
-                return /[A-Z]/.test(el) && index
+                return /[A-ZА-Я]/.test(el) && index
             })
             result.forEach(el=>{
                 if(typeof el === 'number'){
@@ -18,7 +18,7 @@ export const functionForCorrectingNames = (arr) =>{
     }else{
         let arrLetter = arr.split('');
         let result = arrLetter.map((el, index)=>{
-            return /[A-Z]/.test(el) && index
+            return /[A-ZА-Я]/.test(el) && index
         })
         result.forEach(el=>{
             if(typeof el === 'number'){
